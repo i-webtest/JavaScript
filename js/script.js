@@ -1,9 +1,4 @@
-var title;
-var screens;
-var screenPrice;
-var rollback;
-var fullPrice;
-var adaptive;
+let title, screens, screenPrice, rollback, fullPrice, adaptive;
 
 alert("GIT - это что-то мега сложное и непонятное!!!");
 
