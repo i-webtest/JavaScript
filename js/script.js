@@ -25,13 +25,13 @@ if (adaptive == "да") {
 // Спросить у пользователя по 2 раза каждый вопрос и записать ответы в разные переменные
 // 1. “Какой дополнительный тип услуги нужен?”
 // 2. “Сколько это будет стоить?”
-let service1 = prompt("Какой дополнительный тип услуги нужен?");
+let service1 = confirm("Какой дополнительный тип услуги нужен?");
 console.log("Дополнительная услуга: " + service1);
 
 let servicePrice1 = prompt("Сколько это будет стоить?");
 console.log("Стоимость: " + servicePrice1);
 
-let service2 = prompt("Какой дополнительный тип услуги нужен?");
+let service2 = confirm("Какой дополнительный тип услуги нужен?");
 console.log("Дополнительная услуга: " + service2);
 
 let servicePrice2 = prompt("Сколько это будет стоить?");
@@ -51,11 +51,11 @@ let servicePercentPrice = fullPrice * (rollback / 100);
 console.log("Откат посреднику: " + Math.ceil(servicePercentPrice));
 
 // Написать конструкцию условий
-if (fullPrice > 30000) {
+if (fullPrice >= 30000) {
   console.log("Даем скидку в 10%");
-} else if (15000 < fullPrice && fullPrice < 30000) {
+} else if (15000 <= fullPrice && fullPrice < 30000) {
   console.log("Даем скидку в 5%");
-} else if (15000 > fullPrice && fullPrice > 0) {
+} else if (15000 > fullPrice && fullPrice >= 0) {
   console.log("Скидка не предусмотрена");
 } else {
   console.log("Что-то пошло не так");
