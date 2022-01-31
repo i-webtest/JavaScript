@@ -15,8 +15,8 @@ let screenPrice = prompt("Сколько будет стоить данная р
 console.log("Данная работа будет стоить: " + screenPrice + " рублей");
 
 // Спросить у пользователя “Нужен ли адаптив на сайте?” и сохранить данные в переменной adaptive
-let adaptive = prompt("Нужен ли адаптив на сайте?");
-if (adaptive == "да") {
+let adaptive = confirm("Нужен ли адаптив на сайте?");
+if (adaptive == true) {
   console.log(true);
 } else {
   console.log(false);
@@ -25,13 +25,13 @@ if (adaptive == "да") {
 // Спросить у пользователя по 2 раза каждый вопрос и записать ответы в разные переменные
 // 1. “Какой дополнительный тип услуги нужен?”
 // 2. “Сколько это будет стоить?”
-let service1 = confirm("Какой дополнительный тип услуги нужен?");
+let service1 = prompt("Какой дополнительный тип услуги нужен?");
 console.log("Дополнительная услуга: " + service1);
 
 let servicePrice1 = prompt("Сколько это будет стоить?");
 console.log("Стоимость: " + servicePrice1);
 
-let service2 = confirm("Какой дополнительный тип услуги нужен?");
+let service2 = prompt("Какой дополнительный тип услуги нужен?");
 console.log("Дополнительная услуга: " + service2);
 
 let servicePrice2 = prompt("Сколько это будет стоить?");
