@@ -1,17 +1,17 @@
 "use strict";
 
-let title = prompt("Как называется ваш проект?");
-let screens = prompt("Какие типы экранов нужно разработать?");
-let screenPrice = +prompt("Сколько будет стоить данная работа?");
-let adaptive = confirm("Нужен ли адаптив на сайте?");
-let service1 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice1 = +prompt("Сколько это будет стоить?");
-let service2 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice2 = +prompt("Сколько это будет стоить?");
-let rollback = 10;
-let fullPrice = screenPrice + servicePrice1 + servicePrice2;
-let servicePercentPrice = fullPrice - (fullPrice * (rollback / 100));
-let allServicePrices;
+let title = prompt("Как называется ваш проект?", "КаЛьКулятор"),
+screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные"),
+screenPrice = +prompt("Сколько будет стоить данная работа?", 10000),
+adaptive = confirm("Нужен ли адаптив на сайте?"),
+service1 = prompt("Какой дополнительный тип услуги нужен?", "Административная панель"),
+servicePrice1 = +prompt("Сколько это будет стоить?", 1000),
+service2 = prompt("Какой дополнительный тип услуги нужен?", "Слайдер"),
+servicePrice2 = +prompt("Сколько это будет стоить?", 1000),
+rollback = 10,
+fullPrice = screenPrice + servicePrice1 + servicePrice2,
+servicePercentPrice = fullPrice - (fullPrice * (rollback / 100)),
+allServicePrices;
 
 const showTypeOf = function (variable) {
   console.log(variable, typeof variable);
@@ -50,10 +50,11 @@ getFullPrice();
 // Объявить функцию getTitle.
 // Функция возвращает title меняя его таким образом: первый символ с большой буквы, остальные с маленькой.
 // Учесть вариант что строка может начинаться с пустых символов. " КаЛьКулятор Верстки"
-function getTitle(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+function getTitle() {
+  return title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+  
 }
-getTitle(title);
+getTitle();
 
 function getServicePercentPrices() {
   return servicePercentPrice;
@@ -64,10 +65,9 @@ showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 
-console.log(getTitle(title));
+console.log("Проект: " + getTitle(title));
+console.log("Типы кранов: " + screens);
 console.log(getRollbackMessage(fullPrice));
 
-console.log(screens.length);
-console.log(servicePercentPrice);
-console.log(getServicePercentPrices());
+console.log("Итоговая стоимость за вычетом процента отката: " + servicePercentPrice);
 
