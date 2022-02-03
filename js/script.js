@@ -1,59 +1,73 @@
 "use strict";
-// Спрашиваем у пользователя “Как называется ваш проект?” и результат сохраняем в переменную title
-let title = prompt("Как называется ваш проект?", "");
-console.log("Ваш проект называется: " + title);
 
-// Спросить у пользователя “Какие типы экранов нужно разработать?” сохранить в переменную screens
-let screens = prompt(
-  "Какие типы экранов нужно разработать?",
-  "Простые, Сложные, Интерактивные"
-);
-console.log("Нужно разработать " + screens + " типы экранов");
-
-// Спросить у пользователя “Сколько будет стоить данная работа?” и сохранить в переменную screenPrice
-let screenPrice = prompt("Сколько будет стоить данная работа?", 12000);
-console.log("Данная работа будет стоить: " + screenPrice + " рублей");
-
-// Спросить у пользователя “Нужен ли адаптив на сайте?” и сохранить данные в переменной adaptive
+let title = prompt("Как называется ваш проект?");
+let screens = prompt("Какие типы экранов нужно разработать?");
+let screenPrice = +prompt("Сколько будет стоить данная работа?");
 let adaptive = confirm("Нужен ли адаптив на сайте?");
-console.log(adaptive);
-
-
-// Спросить у пользователя по 2 раза каждый вопрос и записать ответы в разные переменные
-// 1. “Какой дополнительный тип услуги нужен?”
-// 2. “Сколько это будет стоить?”
 let service1 = prompt("Какой дополнительный тип услуги нужен?");
-console.log("Дополнительная услуга: " + service1);
-
-let servicePrice1 = prompt("Сколько это будет стоить?");
-console.log("Стоимость: " + servicePrice1);
-
+let servicePrice1 = +prompt("Сколько это будет стоить?");
 let service2 = prompt("Какой дополнительный тип услуги нужен?");
-console.log("Дополнительная услуга: " + service2);
-
-let servicePrice2 = prompt("Сколько это будет стоить?");
-console.log("Стоимость: " + servicePrice2);
-
-// Вычислить итоговую стоимость работы учитывая стоимость верстки экранов и дополнительных услуг и результат занести в
-//переменную fullPrice
-let fullPrice =
-  Number(screenPrice) + Number(servicePrice1) + Number(servicePrice2);
-alert("Итоговая стоимость: " + fullPrice);
-console.log("Итоговая стоимость: " + fullPrice);
-
-// Объявить переменную servicePercentPrice и занести в нее итоговую стоимость за вычетом отката посреднику, округлив
-//результат в большую сторону. Вывести servicePercentPrice в консоль.
+let servicePrice2 = +prompt("Сколько это будет стоить?");
 let rollback = 10;
-let servicePercentPrice = fullPrice * (rollback / 100);
-console.log("Откат посреднику: " + Math.ceil(servicePercentPrice));
+let fullPrice = screenPrice + servicePrice1 + servicePrice2;
+let servicePercentPrice = fullPrice - (fullPrice * (rollback / 100));
+let allServicePrices;
 
-// Написать конструкцию условий
-if (fullPrice >= 30000) {
-  console.log("Даем скидку в 10%");
-} else if (15000 <= fullPrice && fullPrice < 30000) {
-  console.log("Даем скидку в 5%");
-} else if (15000 > fullPrice && fullPrice >= 0) {
-  console.log("Скидка не предусмотрена");
-} else {
-  console.log("Что-то пошло не так");
+const showTypeOf = function (variable) {
+  console.log(variable, typeof variable);
+};
+
+const getRollbackMessage = function(price) {
+  if (price >= 30000) {
+    return "Даем скидку в 10%";
+  } else if (price >= 15000 && price < 30000) {
+    return "Даем скидку в 5%";
+  } else if (price >= 0 && price < 15000) {
+    return "Скидка не предусмотрена";
+  } else {
+    return "Что-то пошло не так";
+  }
+};
+
+// Объявить функцию getAllServicePrices. 
+// Функция возвращает сумму всех дополнительных услуг. 
+// Результат сохраняем в переменную allServicePrices. Тип - function expression
+const getAllServicePrices = function () {
+  allServicePrices = servicePrice1 + servicePrice2;
+  return allServicePrices;
+};
+getAllServicePrices();
+
+// Объявить функцию getFullPrice. 
+// Функция возвращает сумму стоимости верстки и стоимости дополнительных услуг (screenPrice + allServicePrices).
+// Результат сохраняем в переменную fullPrice. Тип - function declaration
+function getFullPrice() {
+  fullPrice = screenPrice + allServicePrices;
+  return fullPrice;
 }
+getFullPrice();
+
+// Объявить функцию getTitle.
+// Функция возвращает title меняя его таким образом: первый символ с большой буквы, остальные с маленькой.
+// Учесть вариант что строка может начинаться с пустых символов. " КаЛьКулятор Верстки"
+function getTitle(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+getTitle(title);
+
+function getServicePercentPrices() {
+  return servicePercentPrice;
+}
+getServicePercentPrices();
+
+showTypeOf(title);
+showTypeOf(screenPrice);
+showTypeOf(adaptive);
+
+console.log(getTitle(title));
+console.log(getRollbackMessage(fullPrice));
+
+console.log(screens.length);
+console.log(servicePercentPrice);
+console.log(getServicePercentPrices());
+
