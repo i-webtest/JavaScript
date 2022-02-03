@@ -36,7 +36,7 @@ const getAllServicePrices = function () {
   allServicePrices = servicePrice1 + servicePrice2;
   return allServicePrices;
 };
-getAllServicePrices();
+// getAllServicePrices();
 
 // Объявить функцию getFullPrice. 
 // Функция возвращает сумму стоимости верстки и стоимости дополнительных услуг (screenPrice + allServicePrices).
@@ -45,7 +45,7 @@ function getFullPrice() {
   fullPrice = screenPrice + allServicePrices;
   return fullPrice;
 }
-getFullPrice();
+// getFullPrice();
 
 // Объявить функцию getTitle.
 // Функция возвращает title меняя его таким образом: первый символ с большой буквы, остальные с маленькой.
@@ -54,20 +54,26 @@ function getTitle() {
   return title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
   
 }
-getTitle();
+// getTitle();
 
 function getServicePercentPrices() {
   return servicePercentPrice;
 }
-getServicePercentPrices();
+// getServicePercentPrices();
 
+// - вызовы функции showTypeOf
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 
 console.log("Проект: " + getTitle(title));
+
+// - вывод строки с типами экранов для разработки screens
 console.log("Типы кранов: " + screens);
+
+// - сообщение о скидке пользователю (вызовы функции getRollbackMessage)
 console.log(getRollbackMessage(fullPrice));
 
+// - стоимость за вычетом процента отката посреднику (вызовы функции getServicePercentPrices)
 console.log("Итоговая стоимость за вычетом процента отката: " + servicePercentPrice);
 
