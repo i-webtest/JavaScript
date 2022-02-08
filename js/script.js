@@ -29,10 +29,10 @@ const appData = {
     return !isNaN(parseFloat(num)) && isFinite(num);
   },
   isString: function (string) {
-    return !isNaN(string);
+    return isNaN(string);
   },
   asking: function () {
-    appData.title = prompt("Как называется ваш проект?", "КаЛьКулятор вёрстки");
+    // appData.title = prompt("Как называется ваш проект?", "КаЛьКулятор вёрстки");
 
     do {
       appData.title = prompt(
@@ -114,11 +114,14 @@ const appData = {
     // for (let key in appData) {
     //   console.log(key + ": " + appData[key]);
     // }
-    console.log("Проект: " + typeof appData.title);
-    console.log("Типы экранов: " + typeof appData.screens);
-    console.log("Данная работа будет стоить: " + typeof appData.fullPrice);
-    console.log("Дополнительные услуги: " + typeof appData.services);
-    console.log("Итоговая стоимость: " + typeof appData.servicePercentPrice);
+    console.log("Проект: " + appData.title);
+    console.log("Типы экранов: ", appData.screens);
+    // console.log("appData.screens:", appData.screens);
+    console.log("Данная работа будет стоить: " + appData.fullPrice + " рублей");
+    console.log("Дополнительные услуги: ", appData.services);
+    console.log(
+      "Итоговая стоимость: " + appData.servicePercentPrice + " рублей"
+    );
     // console.log(appData.title);
     // console.log(appData.screens);
     // console.log(typeof appData.fullPrice);
