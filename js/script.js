@@ -1,9 +1,5 @@
 "use strict";
 
-// const isString = function (str) {
-//   return isNaN(parseFloat(str)) || !isFinite(str);
-// };
-
 const appData = {
   title: "",
   screens: [],
@@ -20,8 +16,6 @@ const appData = {
     appData.getFullPrice();
     appData.getServicePercentPrices();
     appData.getTitle();
-
-    // appData.isString();
 
     appData.logger();
   },
@@ -111,22 +105,13 @@ const appData = {
     }
   },
   logger: function () {
-    // for (let key in appData) {
-    //   console.log(key + ": " + appData[key]);
-    // }
     console.log("Проект: " + appData.title);
     console.log("Типы экранов: ", appData.screens);
-    // console.log("appData.screens:", appData.screens);
     console.log("Данная работа будет стоить: " + appData.fullPrice + " рублей");
     console.log("Дополнительные услуги: ", appData.services);
     console.log(
       "Итоговая стоимость: " + appData.servicePercentPrice + " рублей"
     );
-    // console.log(appData.title);
-    // console.log(appData.screens);
-    // console.log(typeof appData.fullPrice);
-    // console.log(appData.services);
-    // console.log(appData.servicePercentPrice);
   },
 };
 
