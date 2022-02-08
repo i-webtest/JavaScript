@@ -1,5 +1,42 @@
 "use strict";
 
+const title = document.getElementsByTagName("h1");
+
+const button = document.getElementsByClassName("handler_btn");
+
+const buttonPlus = document.querySelector(".screen-btn");
+
+const itemsPercent = document.querySelectorAll(".percent");
+const itemNumber = document.querySelectorAll(".number");
+
+const input = document.querySelector(".rollback").querySelector("input");
+
+const span = document.querySelector(".rollback").querySelector(".range-value");
+
+const totalInput = document.getElementsByClassName("total-input");
+
+let blocks = document.querySelectorAll(".screen");
+
+console.log(title[0]);
+console.log(/*"button: ", */ button[0]);
+console.log(/*"button: ", */ button[1]);
+console.log(buttonPlus);
+console.log(itemsPercent[0]);
+console.log(itemsPercent[1]);
+console.log(itemNumber[0]);
+console.log(itemNumber[1]);
+console.log(itemNumber[2]);
+console.log(itemNumber[3]);
+console.log(itemNumber[4]);
+console.log(input);
+console.log(span);
+console.log(totalInput[0]);
+console.log(totalInput[1]);
+console.log(totalInput[2]);
+console.log(totalInput[3]);
+console.log(totalInput[4]);
+console.log(blocks);
+
 const appData = {
   title: "",
   screens: [],
@@ -11,13 +48,12 @@ const appData = {
   servicePercentPrice: 0,
   services: {},
   start: function () {
-    appData.asking();
-    appData.addPrices();
-    appData.getFullPrice();
-    appData.getServicePercentPrices();
-    appData.getTitle();
-
-    appData.logger();
+    // appData.asking();
+    // appData.addPrices();
+    // appData.getFullPrice();
+    // appData.getServicePercentPrices();
+    // appData.getTitle();
+    // appData.logger();
   },
   isNumber: function (num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
