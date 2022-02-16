@@ -1,41 +1,45 @@
 "use strict";
 
-const title = document.getElementsByTagName("h1");
+const title = document.getElementsByTagName("h1")[0];
 
-const button = document.getElementsByClassName("handler_btn");
+const startBtn = document.getElementsByClassName("handler_btn")[0];
+const resetBtn = document.getElementsByClassName("handler_btn")[1];
 
 const buttonPlus = document.querySelector(".screen-btn");
 
-const itemsPercent = document.querySelectorAll(".percent");
-const itemNumber = document.querySelectorAll(".number");
+const otherItemsPercent = document.querySelectorAll(".other-items.percent");
+const otherItemNumber = document.querySelectorAll(".other-items.number");
 
-const input = document.querySelector(".rollback").querySelector("input");
+const inputRange = document.querySelector(".rollback input");
+const inputRangeValue = document.querySelector(".rollback .range-value");
 
-const span = document.querySelector(".rollback").querySelector(".range-value");
-
-const totalInput = document.getElementsByClassName("total-input");
+const total = document.getElementsByClassName("total-input");
+const totalCount = document.getElementsByClassName("total-input");
+const totalCountOther = document.getElementsByClassName("total-input");
+const fullTotalCount = document.getElementsByClassName("total-input");
+const totalCountRollback = document.getElementsByClassName("total-input");
 
 let blocks = document.querySelectorAll(".screen");
 
-console.log(title[0]);
-console.log(/*"button: ", */ button[0]);
-console.log(/*"button: ", */ button[1]);
+console.log(title);
+console.log(startBtn);
+console.log(resetBtn);
 console.log(buttonPlus);
-console.log(itemsPercent[0]);
-console.log(itemsPercent[1]);
-console.log(itemNumber[0]);
-console.log(itemNumber[1]);
-console.log(itemNumber[2]);
-console.log(itemNumber[3]);
-console.log(itemNumber[4]);
-console.log(input);
-console.log(span);
-console.log(totalInput[0]);
-console.log(totalInput[1]);
-console.log(totalInput[2]);
-console.log(totalInput[3]);
-console.log(totalInput[4]);
-console.log(blocks);
+console.log(otherItemsPercent[0]);
+console.log(otherItemsPercent[1]);
+console.log(otherItemNumber[0]);
+console.log(otherItemNumber[1]);
+console.log(otherItemNumber[2]);
+console.log(otherItemNumber[3]);
+console.log(otherItemNumber[4]);
+console.log(inputRange);
+console.log(inputRangeValue);
+console.log(total[0]);
+console.log(totalCount[1]);
+console.log(totalCountOther[2]);
+console.log(fullTotalCount[3]);
+console.log(totalCountRollback[4]);
+console.log(blocks[0]);
 
 const appData = {
   title: "",
