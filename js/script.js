@@ -18,10 +18,18 @@ const totalCount = document.getElementsByClassName("total-input")[1];
 const totalCountOther = document.getElementsByClassName("total-input")[2];
 const fullTotalCount = document.getElementsByClassName("total-input")[3];
 const totalCountRollback = document.getElementsByClassName("total-input")[4];
-
-// const calculateStartBtn = 
+// const calculateStartBtn =
 
 let screens = document.querySelectorAll(".screen");
+const screensCount = document.querySelector(".screen input");
+console.log(screensCount);
+
+// Повесить на input[type=range] (в блоке с классом .rollback) обработчик события
+inputRange.addEventListener("input", function () {
+  inputRangeValue.textContent = inputRange.value + "%";
+});
+
+console.dir(inputRange);
 
 // console.log(title[0]);
 // console.log(button[0]);
@@ -46,6 +54,7 @@ let screens = document.querySelectorAll(".screen");
 const appData = {
   title: "",
   screens: [],
+  screensCount: 0,
   screenPrice: 0,
   adaptive: true,
   rollback: 10,
@@ -101,6 +110,8 @@ const appData = {
         id: index,
         name: selectName,
         price: +select.value * +input.value,
+        count:
+          +input.value /*Добавить свойство count в которое занести количество       экранов из input*/,
       });
     });
     console.log(appData.screens);
@@ -148,11 +159,14 @@ const appData = {
       +appData.screenPrice +
       appData.servicePricesNumber +
       appData.servicePricesPercent;
-  },
-  getServicePercentPrices: function () {
+    // перенёс логику getServicePercentPrices
     appData.servicePercentPrice =
       appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
   },
+  // getServicePercentPrices: function () {
+  //   appData.servicePercentPrice =
+  //     appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
+  // },
   getRollbackMessage: function (price) {
     if (price >= 30000) {
       return "Даем скидку в 10%";
