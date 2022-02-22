@@ -6,10 +6,8 @@ const buttonPlus = document.querySelector(".screen-btn");
 const otherItemsPercent = document.querySelectorAll(".other-items.percent");
 const otherItemsNumber = document.querySelectorAll(".other-items.number");
 
-// const input = document.querySelector(".rollback").querySelector("input");
 const inputRange = document.querySelector(".rollback input");
 const inputRangeValue = document.querySelector(".rollback .range-value");
-// const span = document.querySelector(".rollback").querySelector(".range-value");
 
 const startBtn = document.getElementsByClassName("handler_btn")[0];
 const resetBtn = document.getElementsByClassName("handler_btn")[1];
@@ -20,10 +18,6 @@ const totalCountOther = document.getElementsByClassName("total-input")[2];
 const fullTotalCount = document.getElementsByClassName("total-input")[3];
 const totalCountRollback = document.getElementsByClassName("total-input")[4];
 const cloneScreen = screens[0].cloneNode(true);
-
-// Повесить на input[type=range] (в блоке с классом .rollback) обработчик события
-
-// totalCount.textContent = screensCount.value;
 
 const appData = {
   title: "",
@@ -83,12 +77,11 @@ const appData = {
     appData.addPrices();
     appData.showResult();
   },
-  // isNumber: function (num) {
-  //   return !isNaN(parseFloat(num)) && isFinite(num);
-  // },
+
   isString: function (string) {
     return isNaN(string);
   },
+
   showResult: function () {
     total.value = appData.screenPrice;
     totalCountOther.value =
@@ -115,6 +108,7 @@ const appData = {
     });
     console.log(appData.screens);
   },
+
   addServices: function () {
     otherItemsPercent.forEach(function (item) {
       const check = item.querySelector("input[type=checkbox]");
@@ -165,6 +159,7 @@ const appData = {
     appData.servicePercentPrice =
       appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
   },
+
   getServicePercentPrices: function () {
     appData.servicePercentPrice = Math.floor(
       appData.fullPrice - appData.fullPrice * (appData.rollback / 100)
