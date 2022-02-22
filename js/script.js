@@ -1,5 +1,6 @@
 "use strict";
 
+let screens = document.querySelectorAll(".screen");
 const title = document.getElementsByTagName("h1")[0];
 const buttonPlus = document.querySelector(".screen-btn");
 const otherItemsPercent = document.querySelectorAll(".other-items.percent");
@@ -18,43 +19,15 @@ const totalCount = document.getElementsByClassName("total-input")[1];
 const totalCountOther = document.getElementsByClassName("total-input")[2];
 const fullTotalCount = document.getElementsByClassName("total-input")[3];
 const totalCountRollback = document.getElementsByClassName("total-input")[4];
-// const calculateStartBtn =
-
-let screens = document.querySelectorAll(".screen");
-let screensCount = document.querySelector(".screen input");
-console.log(screensCount);
+const cloneScreen = screens[0].cloneNode(true);
 
 // Повесить на input[type=range] (в блоке с классом .rollback) обработчик события
-inputRange.addEventListener("input", function () {
-  inputRangeValue.textContent = inputRange.value + "%";
-});
 
 // totalCount.textContent = screensCount.value;
-
-// console.log(title[0]);
-// console.log(button[0]);
-// console.log(button[1]);
-// console.log(buttonPlus);
-// console.log(otherItemsPercent[0]);
-// console.log(otherItemsPercent[1]);
-// console.log(otherItemNumber[0]);
-// console.log(otherItemNumber[1]);
-// console.log(otherItemNumber[2]);
-// console.log(otherItemNumber[3]);
-// console.log(otherItemNumber[4]);
-// console.log(input);
-// console.log(span);
-// console.log(totalInput[0]);
-// console.log(totalInput[1]);
-// console.log(totalInput[2]);
-// console.log(totalInput[3]);
-// console.log(totalInput[4]);
-// console.log(blocks);
 
 const appData = {
   title: "",
   screens: [],
-  totalCount: 0,
   screensCount: 0,
   screenPrice: 0,
   adaptive: true,
@@ -65,23 +38,49 @@ const appData = {
   servicePercentPrice: 0,
   servicesPercent: {},
   servicesNumber: {},
+  isChecked: true,
+
   init: function () {
     appData.addTitle();
 
-    startBtn.addEventListener("click", appData.start);
+    startBtn.addEventListener("click", appData.checkValue);
     buttonPlus.addEventListener("click", appData.addScreenBlock);
+    inputRange.addEventListener("input", appData.addRollback);
   },
+
+  addRollback() {
+    inputRangeValue.textContent = inputRange.value + "%";
+    appData.rollback = +inputRange.value;
+    appData.getServicePercentPrices();
+  },
+
   addTitle: function () {
     document.title = title.textContent;
   },
+
+  checkValue() {
+    appData.isChecked = true;
+
+    screens.forEach(function (screen) {
+      const select = screen.querySelector("select");
+      const input = screen.querySelector("input");
+
+      if (!input.value || !select.value) {
+        appData.isChecked = false;
+      }
+    });
+
+    if (appData.isChecked) {
+      appData.start();
+    } else {
+      alert("Заполните поля!");
+    }
+  },
+
   start: function () {
     appData.addScreens();
     appData.addServices();
-
     appData.addPrices();
-    // appData.getServicePercentPrices();
-    // appData.logger();
-
     appData.showResult();
   },
   // isNumber: function (num) {
@@ -96,14 +95,11 @@ const appData = {
       appData.servicePricesPercent + appData.servicePricesNumber;
     fullTotalCount.value = appData.fullPrice;
     totalCount.value = appData.screensCount;
-    console.log(totalCount.value);
+    totalCountRollback.value = appData.servicePercentPrice;
   },
-
-  // calculateStartBtn.addEventListener('click', appData.resultAddScreens);
 
   addScreens: function () {
     screens = document.querySelectorAll(".screen");
-
     screens.forEach(function (screen, index) {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
@@ -113,8 +109,8 @@ const appData = {
         id: index,
         name: selectName,
         price: +select.value * +input.value,
-        count:
-          +input.value /*Добавить свойство count в которое занести количество       экранов из input*/,
+        //Добавить свойство count в которое занести количество экранов из input
+        count: +input.value,
       });
     });
     console.log(appData.screens);
@@ -140,13 +136,16 @@ const appData = {
       }
     });
   },
+
   addScreenBlock: function () {
-    const cloneScreen = screens[0].cloneNode(true);
-    screens[screens.length - 1].after(cloneScreen);
+    screens[screens.length - 1].after(cloneScreen.cloneNode(true));
+    screens = document.querySelectorAll(".screen");
   },
+
   addPrices: function () {
-    for (let screen of appData.screens) {
+    for (const screen of appData.screens) {
       appData.screenPrice += +screen.price;
+      appData.screensCount += +screen.count;
     }
 
     for (let key in appData.servicesNumber) {
@@ -166,10 +165,13 @@ const appData = {
     appData.servicePercentPrice =
       appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
   },
-  // getServicePercentPrices: function () {
-  //   appData.servicePercentPrice =
-  //     appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
-  // },
+  getServicePercentPrices: function () {
+    appData.servicePercentPrice = Math.floor(
+      appData.fullPrice - appData.fullPrice * (appData.rollback / 100)
+    );
+    totalCountRollback.value = appData.servicePercentPrice;
+  },
+
   getRollbackMessage: function (price) {
     if (price >= 30000) {
       return "Даем скидку в 10%";
@@ -180,15 +182,6 @@ const appData = {
     } else {
       return "Что-то пошло не так";
     }
-  },
-  logger: function () {
-    console.log("Проект: " + appData.title);
-    console.log("Типы экранов: ", appData.screens);
-    console.log("Данная работа будет стоить: " + appData.fullPrice + " рублей");
-    console.log("Дополнительные услуги: ", appData.services);
-    console.log(
-      "Итоговая стоимость: " + appData.servicePercentPrice + " рублей"
-    );
   },
 };
 
