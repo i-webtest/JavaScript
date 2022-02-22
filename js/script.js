@@ -21,7 +21,7 @@ const totalCountRollback = document.getElementsByClassName("total-input")[4];
 // const calculateStartBtn =
 
 let screens = document.querySelectorAll(".screen");
-const screensCount = document.querySelector(".screen input");
+let screensCount = document.querySelector(".screen input");
 console.log(screensCount);
 
 // Повесить на input[type=range] (в блоке с классом .rollback) обработчик события
@@ -29,7 +29,7 @@ inputRange.addEventListener("input", function () {
   inputRangeValue.textContent = inputRange.value + "%";
 });
 
-console.dir(inputRange);
+// totalCount.textContent = screensCount.value;
 
 // console.log(title[0]);
 // console.log(button[0]);
@@ -54,6 +54,7 @@ console.dir(inputRange);
 const appData = {
   title: "",
   screens: [],
+  totalCount: 0,
   screensCount: 0,
   screenPrice: 0,
   adaptive: true,
@@ -94,6 +95,8 @@ const appData = {
     totalCountOther.value =
       appData.servicePricesPercent + appData.servicePricesNumber;
     fullTotalCount.value = appData.fullPrice;
+    totalCount.value = appData.screensCount;
+    console.log(totalCount.value);
   },
 
   // calculateStartBtn.addEventListener('click', appData.resultAddScreens);
