@@ -17,6 +17,7 @@ const totalCount = document.getElementsByClassName("total-input")[1];
 const totalCountOther = document.getElementsByClassName("total-input")[2];
 const fullTotalCount = document.getElementsByClassName("total-input")[3];
 const totalCountRollback = document.getElementsByClassName("total-input")[4];
+
 const cloneScreen = screens[0].cloneNode(true);
 
 const appData = {
@@ -35,20 +36,20 @@ const appData = {
   isChecked: true,
 
   init: function () {
-    appData.addTitle();
+    this.addTitle();
 
-    startBtn.addEventListener("click", appData.checkValue);
-    resetBtn.addEventListener("click", appData.cleanScreen);
-    buttonPlus.addEventListener("click", appData.addScreenBlock);
-    inputRange.addEventListener("input", appData.addRollback);
+    startBtn.addEventListener("click", this.checkValue);
+    resetBtn.addEventListener("click", this.reset);
+    buttonPlus.addEventListener("click", this.addScreenBlock);
+    inputRange.addEventListener("input", this.addRollback);
   },
 
   addRollback() {
     inputRangeValue.textContent = inputRange.value + "%";
-    appData.rollback = +inputRange.value;
-    appData.getServicePercentPrices();
+    this.rollback = +inputRange.value;
+    // appData.getServicePercentPrices();
 
-    console.log(this);
+    console.log(inputRange);
   },
 
   addTitle: function () {
@@ -84,7 +85,7 @@ const appData = {
   },
 
   //Удаляем и очищаем поля select, input при нажатии на кнопку СБРОС
-  cleanScreen() {
+  reset: function () {
     screens.forEach((screen, i) => {
       if (i === 0) {
         const select = document.querySelector("select");
@@ -94,6 +95,7 @@ const appData = {
         select.selectedIndex = 0;
         input.disabled = false;
         input.value = "";
+        buttonPlus.disabled = false;
         startBtn.style.display = "block";
         resetBtn.style.display = "none";
       } else {
@@ -111,23 +113,17 @@ const appData = {
       totalCountRollback.value = 0;
       //очистка checkbox
       document.querySelectorAll(".other-items input").forEach((item) => (item.checked = false));
+      //очистка объекта
+      // this.appData = {};
     });
   },
 
-  // cleanOtherItems: function () {
-  //   document.querySelectorAll(".other-items input").forEach((item) => (item.checked = false));
-  // },
-
-  reset: function () {
-    appData.cleanScreen();
-    appData.cleanOtherItems();
-  },
-
   start: function () {
-    appData.addScreens();
-    appData.addServices();
-    appData.addPrices();
-    appData.showResult();
+    this.addScreens();
+    this.addServices();
+    this.addPrices();
+    this.showResult();
+    this.getServicePercentPrices();
   },
 
   isString: function (string) {
@@ -157,6 +153,7 @@ const appData = {
         count: +input.value,
       });
     });
+    console.log(appData.screens);
   },
 
   addServices: function () {
@@ -206,21 +203,21 @@ const appData = {
   },
 
   getServicePercentPrices: function () {
-    this.servicePercentPrice = Math.floor(this.fullPrice - this.fullPrice * (this.rollback / 100));
+    // this.servicePercentPrice = Math.floor(this.fullPrice - this.fullPrice * (this.rollback / 100));
     totalCountRollback.value = this.servicePercentPrice;
   },
 
-  getRollbackMessage: function (price) {
-    if (price >= 30000) {
-      return "Даем скидку в 10%";
-    } else if (price >= 15000 && price < 30000) {
-      return "Даем скидку в 5%";
-    } else if (price >= 0 && price < 15000) {
-      return "Скидка не предусмотрена";
-    } else {
-      return "Что-то пошло не так";
-    }
-  },
+  // getRollbackMessage: function (price) {
+  //   if (price >= 30000) {
+  //     return "Даем скидку в 10%";
+  //   } else if (price >= 15000 && price < 30000) {
+  //     return "Даем скидку в 5%";
+  //   } else if (price >= 0 && price < 15000) {
+  //     return "Скидка не предусмотрена";
+  //   } else {
+  //     return "Что-то пошло не так";
+  //   }
+  // },
 };
 
 appData.init();
