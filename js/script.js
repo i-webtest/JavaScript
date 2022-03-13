@@ -38,18 +38,20 @@ const appData = {
   init: function () {
     this.addTitle();
 
-    startBtn.addEventListener("click", this.checkValue);
-    resetBtn.addEventListener("click", this.reset);
-    buttonPlus.addEventListener("click", this.addScreenBlock);
-    inputRange.addEventListener("input", this.addRollback);
+    startBtn.addEventListener("click", this.checkValue.bind(this));
+    resetBtn.addEventListener("click", this.reset.bind(this));
+    buttonPlus.addEventListener("click", this.addScreenBlock.bind(this));
+    inputRange.addEventListener("input", this.addRollback.bind(this));
   },
 
   addRollback() {
-    inputRangeValue.textContent = inputRange.value + "%";
     this.rollback = +inputRange.value;
+    inputRangeValue.textContent = inputRange.value + "%";
+    this.servicePercentPrice = Math.floor(this.fullPrice - this.fullPrice * (this.rollback / 100));
     // appData.getServicePercentPrices();
 
-    console.log(inputRange);
+    // console.log(inputRange);
+    this.showResult();
   },
 
   addTitle: function () {
@@ -72,6 +74,7 @@ const appData = {
         appData.start();
         select.disabled = true;
         input.disabled = true;
+        cloneScreen.disabled = true;
         // inputRange.disabled = true;
         // otherItemsPercent.disabled = true;
         // otherItemsNumber.disabled = true;
@@ -115,6 +118,10 @@ const appData = {
       document.querySelectorAll(".other-items input").forEach((item) => (item.checked = false));
       //очистка объекта
       // this.appData = {};
+      // this.showResult();
+      for (let i = 1; i < screens.length; i++) {
+        screens[i].remove();
+      }
     });
   },
 
@@ -123,7 +130,7 @@ const appData = {
     this.addServices();
     this.addPrices();
     this.showResult();
-    this.getServicePercentPrices();
+    // this.getServicePercentPrices();
   },
 
   isString: function (string) {
@@ -139,7 +146,7 @@ const appData = {
   },
 
   addScreens: function () {
-    screens = document.querySelectorAll(".screen");
+    // screens = document.querySelectorAll(".screen");
     screens.forEach((screen, index) => {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
@@ -153,7 +160,7 @@ const appData = {
         count: +input.value,
       });
     });
-    console.log(appData.screens);
+    // console.log(appData.screens);
   },
 
   addServices: function () {
@@ -179,14 +186,15 @@ const appData = {
   },
 
   addScreenBlock: function () {
+    // const screens = document.querySelectorAll(".screen");
     screens[screens.length - 1].after(cloneScreen.cloneNode(true));
     screens = document.querySelectorAll(".screen");
   },
 
   addPrices: function () {
-    for (const screen of this.screens) {
+    for (let screen of this.screens) {
       this.screenPrice += +screen.price;
-      this.screensCount += +screen.count;
+      // this.screensCount += +screen.count;
     }
 
     for (let key in this.servicesNumber) {
@@ -197,15 +205,22 @@ const appData = {
       this.servicePricesPercent += this.screenPrice * (this.servicesPercent[key] / 100);
     }
 
+    // this.screens.forEach((item) => (this.screensCount += +item.count));
+
     this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
     // перенёс логику getServicePercentPrices
-    this.servicePercentPrice = this.fullPrice - this.fullPrice * (this.rollback / 100);
+    this.servicePercentPrice = +this.fullPrice - this.fullPrice * (this.rollback / 100);
+    totalCountRollback.value = this.servicePercentPrice;
+
+    for (let screen of this.screens) {
+      this.screenCount += +screen.count;
+    }
   },
 
-  getServicePercentPrices: function () {
-    // this.servicePercentPrice = Math.floor(this.fullPrice - this.fullPrice * (this.rollback / 100));
-    totalCountRollback.value = this.servicePercentPrice;
-  },
+  // getServicePercentPrices: function () {
+  //   this.servicePercentPrice = Math.floor(this.fullPrice - this.fullPrice * (this.rollback / 100));
+  //   totalCountRollback.value = this.servicePercentPrice;
+  // },
 
   // getRollbackMessage: function (price) {
   //   if (price >= 30000) {
