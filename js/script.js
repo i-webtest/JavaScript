@@ -26,7 +26,7 @@ const appData = {
   screensCount: 0,
   screenPrice: 0,
   adaptive: true,
-  rollback: 10,
+  rollback: 0,
   servicePricesPercent: 0,
   servicePricesNumber: 0,
   fullPrice: 0,
