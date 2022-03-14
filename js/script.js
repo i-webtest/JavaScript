@@ -125,6 +125,18 @@ const appData = {
     });
   },
 
+  // removeElement: function () {
+  //   // let elems = document.querySelectorAll(".screen");
+  //   for (let i = screens.length - 1; i > 0; i--) {
+  //     screens[i].remove();
+  //   }
+  // },
+
+  // reset: function () {
+  //   this.removeElement();
+  //   this.resetInput();
+  // },
+
   start: function () {
     this.addScreens();
     this.addServices();
@@ -146,6 +158,8 @@ const appData = {
   },
 
   addScreens: function () {
+    appData.length = 0;
+    this.screens.length = 0;
     // screens = document.querySelectorAll(".screen");
     screens.forEach((screen, index) => {
       const select = screen.querySelector("select");
@@ -160,7 +174,7 @@ const appData = {
         count: +input.value,
       });
     });
-    // console.log(appData.screens);
+    console.log(appData.screens);
   },
 
   addServices: function () {
