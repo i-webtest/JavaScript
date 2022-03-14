@@ -75,9 +75,6 @@ const appData = {
         select.disabled = true;
         input.disabled = true;
         cloneScreen.disabled = true;
-        // inputRange.disabled = true;
-        // otherItemsPercent.disabled = true;
-        // otherItemsNumber.disabled = true;
         buttonPlus.disabled = true;
         startBtn.style.display = "none";
         resetBtn.style.display = "block";
@@ -173,6 +170,7 @@ const appData = {
         //Добавить свойство count в которое занести количество экранов из input
         count: +input.value,
       });
+      console.log(this.screens);
     });
     console.log(appData.screens);
   },
@@ -203,6 +201,7 @@ const appData = {
     // const screens = document.querySelectorAll(".screen");
     screens[screens.length - 1].after(cloneScreen.cloneNode(true));
     screens = document.querySelectorAll(".screen");
+    console.log(screens.length - 1);
   },
 
   addPrices: function () {
