@@ -70,76 +70,99 @@ const appData = {
       }
 
       //Блокировать все input[type=text] и select с левой стороны после нажатия кнопки Рассчитать
-      if (this.isChecked) {
-        appData.start();
-        select.disabled = true;
-        input.disabled = true;
-        cloneScreen.disabled = true;
-        buttonPlus.disabled = true;
-        startBtn.style.display = "none";
-        resetBtn.style.display = "block";
-      } else {
-        alert("Заполните поля!");
-      }
+    });
+    if (this.isChecked) {
+      appData.start();
+    } else {
+      alert("Заполните поля!");
+    }
+
+    // select.disabled = true;
+    // input.disabled = true;
+    // cloneScreen.disabled = true;
+    // buttonPlus.disabled = true;
+    // startBtn.style.display = "none";
+    // resetBtn.style.display = "block";
+    // this.disabledInput();
+  },
+
+  disabledInput: function () {
+    const select = document.querySelectorAll(".screen select");
+    const input = document.querySelectorAll(".screen input[type=text]");
+
+    startBtn.style.display = "none";
+    resetBtn.style.display = "block";
+    buttonPlus.disabled = true;
+
+    select.forEach((item) => {
+      item.setAttribute("disabled", true);
+    });
+
+    input.forEach((item) => {
+      item.setAttribute("disabled", true);
     });
   },
+
+  // disabledBtnStart: function () {
+  //   startBtn.style.display = "none";
+  //   resetBtn.style.display = "block";
+  //   buttonPlus.disabled = true;
+  //   cloneScreen.disabled = true;
+  // },
+
+  // disabledBtnReset: function () {
+  //   startBtn.style.display = "block";
+  //   resetBtn.style.display = "none";
+  //   buttonPlus.disabled = false;
+  //   cloneScreen.disabled = false;
+  // },
 
   //Удаляем и очищаем поля select, input при нажатии на кнопку СБРОС
   reset: function () {
-    screens.forEach((screen, i) => {
-      if (i === 0) {
-        const select = document.querySelector("select");
-        const input = document.querySelector("input[type=text]");
+    startBtn.style.display = "block";
+    resetBtn.style.display = "none";
+    buttonPlus.disabled = false;
+    const select = document.querySelectorAll(".screen select");
+    const input = document.querySelectorAll(".screen input[type=text]");
+    const total = document.querySelectorAll(".total-input");
 
-        select.disabled = false;
-        select.selectedIndex = 0;
-        input.disabled = false;
-        input.value = "";
-        buttonPlus.disabled = false;
-        startBtn.style.display = "block";
-        resetBtn.style.display = "none";
-      } else {
-        screen.remove();
-      }
-
-      //сброс откат посреднику
-      inputRange.value = 0;
-      inputRangeValue.textContent = inputRange.value + "%";
-      //очистка полей ИТОГО
-      total.value = 0;
-      totalCount.value = 0;
-      totalCountOther.value = 0;
-      fullTotalCount.value = 0;
-      totalCountRollback.value = 0;
-      //очистка checkbox
-      document.querySelectorAll(".other-items input").forEach((item) => (item.checked = false));
-      //очистка объекта
-      // this.appData = {};
-      // this.showResult();
-      for (let i = 1; i < screens.length; i++) {
-        screens[i].remove();
-      }
+    select.forEach((item) => {
+      item.removeAttribute("disabled");
+      item.selectedIndex = 0;
     });
+
+    input.forEach((item) => {
+      item.removeAttribute("disabled");
+      item.value = "";
+    });
+
+    total.forEach((item) => {
+      item.value = "";
+    });
+
+    // screens.forEach((item, i) => {
+    //   if (i > 0) {
+    //     item.remove();
+    //   }
+    // });
+
+    document.querySelectorAll(".other-items input").forEach((item) => (item.checked = false));
+
+    inputRange.value = 0;
+    inputRangeValue.textContent = inputRange.value + "%";
+
+    for (let i = 1; i < screens.length; i++) {
+      screens[i].remove();
+    }
   },
-
-  // removeElement: function () {
-  //   // let elems = document.querySelectorAll(".screen");
-  //   for (let i = screens.length - 1; i > 0; i--) {
-  //     screens[i].remove();
-  //   }
-  // },
-
-  // reset: function () {
-  //   this.removeElement();
-  //   this.resetInput();
-  // },
 
   start: function () {
     this.addScreens();
     this.addServices();
     this.addPrices();
     this.showResult();
-    // this.getServicePercentPrices();
+    // this.disabledBtnStart();
+    this.disabledInput();
   },
 
   isString: function (string) {
@@ -170,9 +193,7 @@ const appData = {
         //Добавить свойство count в которое занести количество экранов из input
         count: +input.value,
       });
-      console.log(this.screens);
     });
-    console.log(appData.screens);
   },
 
   addServices: function () {
@@ -198,7 +219,6 @@ const appData = {
   },
 
   addScreenBlock: function () {
-    // const screens = document.querySelectorAll(".screen");
     screens[screens.length - 1].after(cloneScreen.cloneNode(true));
     screens = document.querySelectorAll(".screen");
     console.log(screens.length - 1);
@@ -207,7 +227,7 @@ const appData = {
   addPrices: function () {
     for (let screen of this.screens) {
       this.screenPrice += +screen.price;
-      // this.screensCount += +screen.count;
+      this.screensCount += +screen.count;
     }
 
     for (let key in this.servicesNumber) {
