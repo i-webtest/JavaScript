@@ -122,7 +122,11 @@ const appData = {
 
     for (let i = 1; i < screens.length; i++) {
       screens[i].remove();
+      console.log(screens);
     }
+
+    screens[screens.length - 1].after(cloneScreen.cloneNode(true));
+    screens = document.querySelectorAll(".screen");
 
     this.title = "";
     this.screens = [];
@@ -203,7 +207,7 @@ const appData = {
   addScreenBlock: function () {
     screens[screens.length - 1].after(cloneScreen.cloneNode(true));
     screens = document.querySelectorAll(".screen");
-    console.log(screens.length - 1);
+    // console.log(screens.length - 1);
   },
 
   addPrices: function () {
