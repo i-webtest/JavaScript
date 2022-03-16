@@ -69,7 +69,7 @@ const appData = {
       //Блокировать все input[type=text] и select с левой стороны после нажатия кнопки Рассчитать
     });
     if (this.isChecked) {
-      appData.start();
+      this.start();
     } else {
       alert("Заполните поля!");
     }
@@ -125,7 +125,6 @@ const appData = {
       console.log(screens);
     }
 
-    screens[screens.length - 1].after(cloneScreen.cloneNode(true));
     screens = document.querySelectorAll(".screen");
 
     this.title = "";
@@ -164,8 +163,8 @@ const appData = {
   },
 
   addScreens: function () {
-    appData.length = 0;
-    this.screens.length = 0;
+    // appData.length = 0;
+    // this.screens.length = 0;
     // screens = document.querySelectorAll(".screen");
     screens.forEach((screen, index) => {
       const select = screen.querySelector("select");
