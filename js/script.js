@@ -163,9 +163,6 @@ const appData = {
   },
 
   addScreens: function () {
-    // appData.length = 0;
-    // this.screens.length = 0;
-    // screens = document.querySelectorAll(".screen");
     screens.forEach((screen, index) => {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
